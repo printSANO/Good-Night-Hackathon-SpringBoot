@@ -7,6 +7,8 @@ import com.techeer.hackathon.domain.restaurant.repository.RestaurantRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class RestaurantService {
@@ -16,6 +18,14 @@ public class RestaurantService {
     public Restaurant insertRestaurant(RestaurantCreateRequest restaurantCreateDto) {
         return R_Repository.save(R_Mapper.DtoToEntity(restaurantCreateDto));
     }
+    public List<Restaurant> getAllRestaurant() {
+        return R_Repository.findAll();
+    }
+    public List<Restaurant> getRestaurantByCategory(String category) {
+        return R_Repository.findByCategory(category);
+    }
 
-
+//    public List<Restaurant> getRestaurantByCategory(String category) {
+//        return R_Repository.findByCategory(category);
+//    }
 }
