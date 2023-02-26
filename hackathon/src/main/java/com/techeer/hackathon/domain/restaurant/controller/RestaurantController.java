@@ -7,12 +7,14 @@ import com.techeer.hackathon.domain.restaurant.entity.Restaurant;
 import com.techeer.hackathon.domain.restaurant.service.RestaurantService;
 import com.techeer.hackathon.domain.restaurant.repository.RestaurantRepository;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.ArrayList;
 
 import javax.validation.Valid;
 
@@ -30,25 +32,25 @@ public class RestaurantController {
         Restaurant insertRestaurant = R_Service.insertRestaurant(restaurantCreateDto);
         return new ResponseEntity(R_Mapper.DtoFromEntity(insertRestaurant), HttpStatus.CREATED);
     }
-    @GetMapping("/all")
-    @ResponseStatus(HttpStatus.OK)
-    public List<Restaurant> getAllRestaurants() {
-        return R_Service.getAllRestaurant();
+
+    @GetMapping("/page")
+    public ResponseEntity<List<RestaurantResponse>> getAllRestaurant(
+            @RequestParam(defaultValue = "10") Integer size, @RequestParam(defaultValue = "0") Integer offset) {
+        return ResponseEntity.ok(R_Service.getAllRestaurant(size, offset));
     }
 
-    @GetMapping()
-    @ResponseStatus(HttpStatus.OK)
-    public List<Restaurant> getRestaurantByCategory(@RequestParam("category") String category) {
-        return R_Service.getRestaurantByCategory(category);
+    @GetMapping("/category")
+    public ResponseEntity<List<RestaurantResponse>> getRestaurantByCategory(
+            @RequestParam("category") String category, @RequestParam(defaultValue = "10") Integer size,
+            @RequestParam(defaultValue = "0") Integer offset) {
+        return ResponseEntity.ok(R_Service.getRestaurantByCategory(category, size, offset));
     }
-//    @GetMapping("/users/{username}")
-//    public List<User> getUsersWithSameUsername(@PathVariable String username) {
-//        return userService.getUsersWithSameUsername(username);
-//    }
-//    @GetMapping
-//    @ResponseStatus(HttpStatus.OK)
-//    public ResponseEntity<RestaurantResponse> restaurantResponse(
-//            @RequestBody @Valid RestaurantResponse){
-//        return null;
-//    }
+
+    @GetMapping("/id/{id}")
+    public ResponseEntity getRestaurantById(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(R_Service.getRestaurantById(id));
+    }
+//    @PutMapping(/)
+
+
 }

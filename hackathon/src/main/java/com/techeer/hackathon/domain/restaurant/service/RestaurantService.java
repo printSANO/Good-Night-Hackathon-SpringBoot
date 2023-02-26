@@ -1,13 +1,19 @@
 package com.techeer.hackathon.domain.restaurant.service;
 
 import com.techeer.hackathon.domain.restaurant.dto.RestaurantCreateRequest;
+import com.techeer.hackathon.domain.restaurant.dto.RestaurantResponse;
 import com.techeer.hackathon.domain.restaurant.dto.mapper.RestaurantMapper;
 import com.techeer.hackathon.domain.restaurant.entity.Restaurant;
 import com.techeer.hackathon.domain.restaurant.repository.RestaurantRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.crossstore.ChangeSetPersister;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -18,14 +24,18 @@ public class RestaurantService {
     public Restaurant insertRestaurant(RestaurantCreateRequest restaurantCreateDto) {
         return R_Repository.save(R_Mapper.DtoToEntity(restaurantCreateDto));
     }
-    public List<Restaurant> getAllRestaurant() {
-        return R_Repository.findAll();
+    public List<RestaurantResponse> getAllRestaurant(Integer size, Integer offSet) {
+        Pageable pageable = PageRequest.of(offSet, size);
+        return R_Mapper.restaurantResponseListFromEntity(R_Repository.findRestaurants(pageable));
     }
-    public List<Restaurant> getRestaurantByCategory(String category) {
-        return R_Repository.findByCategory(category);
+    public List<RestaurantResponse> getRestaurantByCategory(String category, Integer size, Integer offSet) {
+        Pageable pageable = PageRequest.of(offSet, size);
+//        List<Restaurant> listRestaurant = (List<Restaurant>) R_Repository.findByCategory(category,pageable);
+        return R_Mapper.restaurantResponseListFromEntity(R_Repository.findByCategory(category,pageable));
     }
 
-//    public List<Restaurant> getRestaurantByCategory(String category) {
-//        return R_Repository.findByCategory(category);
-//    }
+    public RestaurantResponse getRestaurantById(Long id) {
+        Restaurant restaurant = R_Repository.findById(id).orElseThrow(RuntimeException::new);
+        return R_Mapper.DtoFromEntity(restaurant);
+    }
 }

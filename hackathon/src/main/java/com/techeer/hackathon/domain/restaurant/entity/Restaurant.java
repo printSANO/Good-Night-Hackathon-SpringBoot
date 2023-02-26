@@ -25,8 +25,8 @@ public class Restaurant extends BaseEntity {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "is_deleted", columnDefinition = "boolean default false")
-    private Boolean is_deleted;
+    @Column(name = "deleted", columnDefinition = "boolean default false")
+    private boolean deleted;
 
     @Builder
     public Restaurant(String category, String name) {
