@@ -35,6 +35,7 @@ public class Restaurant extends BaseEntity {
     }
     public void delete() {
         this.deleted = true;
+//        ???
         System.out.println(id);
     }
 }
