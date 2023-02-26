@@ -25,4 +25,19 @@ public class ReviewService {
     public Review insertReview(ReviewCreateRequest reviewCreateRequest){
         return Re_Repository.save(Re_Mapper.ReviewDtoToEntity(reviewCreateRequest));
     }
+    public void updateReview(Long id, String newTitle, String newContent){
+        Review review = Re_Repository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException("Review not found with id " + id));
+        review.setTitle(newTitle);
+        review.setContent(newContent);
+        Re_Repository.save(review);
+    }
+    public ReviewResponse getReviewById(Long id){
+        Review review = Re_Repository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException("Review not found with id " + id));
+        return Re_Mapper.ReviewEntityToDto(review);
+    }
+    public void deleteReviewById(Long id){
+        Re_Repository.deleteById(id);
+    }
 }

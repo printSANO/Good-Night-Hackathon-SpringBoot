@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 @RequiredArgsConstructor
 public class ReviewCreateRequest {
     @NotNull
-    private Restaurant restaurant;
+    private Long restaurantId;
     @NotNull
     private String title;
     @NotNull

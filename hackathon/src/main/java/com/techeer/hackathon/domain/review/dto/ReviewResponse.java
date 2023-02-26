@@ -8,7 +8,7 @@ import lombok.Getter;
 @Getter
 public class ReviewResponse {
     private Long id;
-    private Restaurant restaurant;
+    private String restaurantName;
     private String title;
     private String content;
 }
