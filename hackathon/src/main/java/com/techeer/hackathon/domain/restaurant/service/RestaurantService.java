@@ -6,12 +6,14 @@ import com.techeer.hackathon.domain.restaurant.dto.mapper.RestaurantMapper;
 import com.techeer.hackathon.domain.restaurant.entity.Restaurant;
 import com.techeer.hackathon.domain.restaurant.repository.RestaurantRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.crossstore.ChangeSetPersister;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,9 +40,16 @@ public class RestaurantService {
         Restaurant restaurant = R_Repository.findById(id).orElseThrow(RuntimeException::new);
         return R_Mapper.DtoFromEntity(restaurant);
     }
+    @Transactional
     public void softDeleteRestaurant(Long id){
         Restaurant restaurant = R_Repository.findById(id).orElseThrow(RuntimeException::new);
         restaurant.delete();
     }
-
+    public RestaurantResponse updateRestaurantCategory(Long id, String newCategory){
+        Restaurant restaurant = R_Repository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException("Restaurant not found with id " + id));
+        restaurant.setCategory(newCategory);
+        R_Repository.save(restaurant);
+        return R_Mapper.DtoFromEntity(restaurant);
+    }
 }

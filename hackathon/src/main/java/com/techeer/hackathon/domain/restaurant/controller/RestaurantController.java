@@ -5,16 +5,14 @@ import com.techeer.hackathon.domain.restaurant.dto.RestaurantResponse;
 import com.techeer.hackathon.domain.restaurant.dto.mapper.RestaurantMapper;
 import com.techeer.hackathon.domain.restaurant.entity.Restaurant;
 import com.techeer.hackathon.domain.restaurant.service.RestaurantService;
-import com.techeer.hackathon.domain.restaurant.repository.RestaurantRepository;
+
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
-import java.util.ArrayList;
 
 import javax.validation.Valid;
 
@@ -51,12 +49,11 @@ public class RestaurantController {
         return ResponseEntity.ok(R_Service.getRestaurantById(id));
     }
     @DeleteMapping("/id/{id}")
-    public void updateRestaurant(@PathVariable("id") Long id) {
+    public void deleteRestaurant(@PathVariable("id") Long id) {
         R_Service.softDeleteRestaurant(id);
-        System.out.println(id);
     }
-//    @PutMapping("/id/{id}")
-//    public ResponseEntity getRestaurantById(@PathVariable("id") Long id) {
-//        return ResponseEntity.ok(R_Service.getRestaurantById(id));
-//    }
+    @PutMapping("/id/{id}/{category}")
+    public ResponseEntity updateRestaurantCategory(@PathVariable("id") Long id, @PathVariable("category") String category) {
+        return ResponseEntity.ok(R_Service.updateRestaurantCategory(id,category));
+    }
 }

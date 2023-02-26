@@ -2,7 +2,6 @@ package com.techeer.hackathon.domain.restaurant.dto.mapper;
 
 import com.techeer.hackathon.domain.restaurant.dto.RestaurantCreateRequest;
 import com.techeer.hackathon.domain.restaurant.dto.RestaurantResponse;
-import com.techeer.hackathon.domain.restaurant.dto.RestaurantUpdateRequest;
 import com.techeer.hackathon.domain.restaurant.entity.Restaurant;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

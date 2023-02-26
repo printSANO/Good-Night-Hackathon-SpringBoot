@@ -1,16 +1,14 @@
 package com.techeer.hackathon.domain.restaurant.entity;
 
 import com.techeer.hackathon.global.util.BaseEntity;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
 @Builder
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name="restaurant")
@@ -35,7 +33,5 @@ public class Restaurant extends BaseEntity {
     }
     public void delete() {
         this.deleted = true;
-//        ???
-        System.out.println(id);
     }
 }
