@@ -38,4 +38,9 @@ public class RestaurantService {
         Restaurant restaurant = R_Repository.findById(id).orElseThrow(RuntimeException::new);
         return R_Mapper.DtoFromEntity(restaurant);
     }
+    public void softDeleteRestaurant(Long id){
+        Restaurant restaurant = R_Repository.findById(id).orElseThrow(RuntimeException::new);
+        restaurant.delete();
+    }
+
 }

@@ -50,7 +50,13 @@ public class RestaurantController {
     public ResponseEntity getRestaurantById(@PathVariable("id") Long id) {
         return ResponseEntity.ok(R_Service.getRestaurantById(id));
     }
-//    @PutMapping(/)
-
-
+    @DeleteMapping("/id/{id}")
+    public void updateRestaurant(@PathVariable("id") Long id) {
+        R_Service.softDeleteRestaurant(id);
+        System.out.println(id);
+    }
+//    @PutMapping("/id/{id}")
+//    public ResponseEntity getRestaurantById(@PathVariable("id") Long id) {
+//        return ResponseEntity.ok(R_Service.getRestaurantById(id));
+//    }
 }

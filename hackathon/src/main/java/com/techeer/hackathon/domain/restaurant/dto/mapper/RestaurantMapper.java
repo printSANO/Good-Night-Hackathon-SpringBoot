@@ -2,6 +2,7 @@ package com.techeer.hackathon.domain.restaurant.dto.mapper;
 
 import com.techeer.hackathon.domain.restaurant.dto.RestaurantCreateRequest;
 import com.techeer.hackathon.domain.restaurant.dto.RestaurantResponse;
+import com.techeer.hackathon.domain.restaurant.dto.RestaurantUpdateRequest;
 import com.techeer.hackathon.domain.restaurant.entity.Restaurant;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -29,6 +30,7 @@ public class RestaurantMapper {
                 .createdAt(restaurant.getCreatedAt())
                 .build();
     }
+
     public List<RestaurantResponse> restaurantResponseListFromEntity(Page<Restaurant> restaurantPage){
         List<RestaurantResponse> restaurantResponseList = restaurantPage.stream().map(this::DtoFromEntity).collect(Collectors.toList());
         return restaurantResponseList;
