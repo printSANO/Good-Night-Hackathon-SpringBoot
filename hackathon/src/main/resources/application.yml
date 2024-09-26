@@ -1,0 +1,19 @@
+spring:
+  jpa:
+    database-platform: "com.techeer.hackathon.global.config.SQLDialect"
+    hibernate:
+      ddl-auto: "update"
+#    properties:
+#      hibernate:
+#        format_sql: true
+#    generate-ddl: true
+
+  datasource:
+    driver-class-name: "org.sqlite.JDBC"
+    url: "jdbc:sqlite:sqlitesample.db"
+    username: "admin"
+    password: "admin"
+#
+#  flyway:
+#    enabled: false
+#    baseline-on-migrate: true
